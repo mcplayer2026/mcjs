@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><!--
+
+Note
+
+This website is available only to users in mainland China. We do not provide support to users in other regions. Users in other regions are prohibited from using this website, and we have blocked all overseas IP addresses.
+
+There is no game-related code in this repository. All code is sourced from eaglercraft.com. If you have any questions, please contact them.
+
+We are not affiliated with Minecraft, Mojang, or Microsoft. This website is for educational purposes only. We do not host any games on our servers nor do we condone piracy.
+
+--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MCJS - 网页版MC最佳中文版 - 官方网站 - MCJS.Link</title>
+  <meta name="description" content="在浏览器里玩MC">
+  <meta name="keywords" content="WebMC, MCJS, eaglercraft, eaglercraftx, minecraft">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="MCJS - 网页版MC最佳中文版官方网站">
+  <meta property="og:description" content="在浏览器里玩MC">
+  <meta property="og:image" content="favicon.png">
+  <link type="image/png" rel="shortcut icon" href="https://mcjs.link/favicon.png">
+  <style>
+    @font-face {
+      font-family: 'Oxanium';
+      font-style: normal;
+      font-weight: 200 800;
+      font-display: swap;
+      src: url(Oxanium.woff2) format('woff2');
+    }
+
+    :root {
+      --bg: rgba(255, 255, 255, 0);
+      --panel: rgba(255, 255, 255, 0.4);
+      --panel-border: rgb(230, 230, 230);
+      --muted: #6b6b6b;
+      --accent: #22a84a;
+      --accent-contrast: #0f6b2d;
+      --chip-bg: #f1f5f9;
+      --text: #111;
+      --gap: 20px;
+      font-family: "Oxanium", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Microsoft Yahei", Arial;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -999;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)), url('background.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+
+    hr {
+      border: 0;
+      height: 1px;
+      background-color: #f0f0f0;
+      margin: 20px 0;
+    }
+
+    .pp {
+      text-align: center;
+      margin: 12px 0 6px;
+      color: var(--accent-contrast);
+      font-size: 20px
+    }
+
+    .ppp {
+      text-align: center;
+      margin: 0px 0 22px;
+      color: var(--accent-contrast);
+      font-size: 15px
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      text-align: center;
+      margin: 12px 0 12px
+    }
+
+    .hero h1 {
+      color: var(--accent);
+      margin: 0;
+      line-height: 70px;
+      font-size: 72px
+    }
+
+    .hero h2 {
+      color: var(--accent);
+      margin: 0;
+      font-size: 21px
+    }
+
+    .hero h3 {
+      color: var(--accent);
+      margin: 0;
+      font-size: 18px
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 15px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--gap)
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      color: var(--text);
+      padding: 18px;
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 150px;
+    }
+
+    .card .chip {
+      display: inline-block;
+      padding: 6px 8px;
+      font-size: 12px;
+      border-radius: 0;
+      background: var(--chip-bg);
+      color: var(--muted);
+    }
+
+    .card .chip1 {
+      display: inline-block;
+      padding: 6px 8px;
+      font-size: 12px;
+      border-radius: 0;
+      background: cornflowerblue;
+      color: white;
+    }
+
+    .card .chip2 {
+      display: inline-block;
+      padding: 6px 8px;
+      font-size: 12px;
+      border-radius: 0;
+      background: darkorchid;
+      color: white;
+    }
+
+    .card h3 {
+      margin: 6px 0 6px;
+      font-size: 18px
+    }
+
+    .ver {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px
+    }
+
+    .features {
+      font-size: 13px;
+      color: #333;
+      margin: 10px 0;
+      line-height: 1.5
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 16px;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 0;
+      font-weight: 700;
+      text-align: center;
+      border: 0;
+      box-shadow: none;
+    }
+
+    .btn:hover {
+      background: var(--accent-contrast);
+    }
+
+    .btno {
+      display: inline-block;
+      background: gainsboro;
+      color: gray;
+      padding: 10px 16px;
+      text-decoration: none;
+      border-radius: 0;
+      font-weight: 700;
+      text-align: center;
+      border: 0;
+      box-shadow: none;
+    }
+
+    .btnb {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 4px 4px;
+      width: 110px;
+      height: 18px;
+      font-size: 14px;
+      margin-top: 2px;
+      margin-bottom: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 0;
+      text-align: center;
+      border: 0;
+      box-shadow: none;
+    }
+
+    .btnb:hover {
+      background: var(--accent-contrast);
+    }
+
+    .btnbox {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      padding-bottom: 2px;
+    }
+
+    .doc {
+      margin-top: 18px;
+      padding: 18px;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+    }
+
+    .doc h3 {
+      margin: 12px 0;
+      font-size: 20px;
+      color: #222
+    }
+
+    .doc p {
+      margin: 8px 0;
+      color: var(--muted);
+      line-height: 1.6
+    }
+
+    .doc ul {
+      color: var(--muted)
+    }
+
+    .small {
+      font-size: 18px;
+      margin-bottom: 0px;
+      color: var(--text) !important
+    }
+
+    .why {
+      display: flex;
+      gap: 20px;
+      justify-content: space-between;
+      flex-wrap: wrap
+    }
+
+    .why .item {
+      flex: 1 1 70px;
+      text-align: center;
+      padding: 18px;
+      border-radius: 0;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+    }
+
+    .why .item h4 {
+      margin: 6px 0;
+      color: #222
+    }
+
+    .why .item p {
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    footer {
+      margin-top: 18px;
+      padding: 18px 0;
+      text-align: center;
+      color: var(--muted);
+      line-height: 150%;
+      font-size: 12px;
+      border-top: 1px solid #f3f3f3
+    }
+
+    .hl {
+      background-color: rgba(227, 255, 230, 0.5);
+    }
+
+    .hero2 {
+      padding: 8px 0 8px;
+      max-width: 450px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero2 h1 {
+      text-align: center;
+      margin: 0;
+      color: red;
+      font-size: 30px
+    }
+
+    .hero2 h2 {
+      text-align: center;
+      margin-top: 0px;
+      margin-bottom: 6px;
+      color: black;
+      font-size: 20px;
+    }
+
+    .hero2 ol {
+      margin-top: 0px;
+      margin-bottom: 12px;
+    }
+
+    .hero2 li {
+      margin-top: 6px;
+      color: black;
+      font-size: 16px
+    }
+
+    .hero2 a {
+      color: green;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .siz {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .modal-window {
+      background-color: #fff;
+      padding: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 250px;
+      cursor: default;
+    }
+
+    .modal-window h3 {
+      margin-top: 0;
+      margin-bottom: 0;
+      color: #333;
+      font-size: 20px;
+    }
+
+    .modal-window span {
+      margin-top: 0;
+      margin-bottom: 0;
+      color: #333;
+      font-size: 13px;
+    }
+
+    .modal-window p {
+      margin-top: 0;
+      margin-bottom: 0;
+      color: #777;
+      font-size: 12px;
+    }
+  </style>
+
+</head>
+<body class="img-bg"><div class="bg" id="bg"></div>
+
+
+  <div class="wrap">
+    <section class="hero">
+      <h1>MCJS</h1>
+      <h3>MC in JavaScript - MCJS.Link</h3>
+      <h2>无需下载, 直接在浏览器里玩 MC !</h2>
+      <h3>Eaglercraft 最佳简体中文翻译版</h3>
+      <h3>Eaglercraft 所有版本最全整合网站</h3>
+      <p>免费|无广告|无需下载|全设备支持|中文优化<br>多版本|材质包|光影包|模组整合包|远程联机</p>
+      <a href="https://github.com/ScienceSN/mcjs" target="_blank">
+        <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/ScienceSN/mcjs?style=flat-square&logo=github"></a>
+      <a href="https://sciencesn.github.io/mcjs/#announcement">
+        <img alt="Static Badge" src="https://img.shields.io/badge/%E8%BF%91%E6%9C%9F-%E5%85%AC%E5%91%8A-orange?style=flat-square&logo=gitbook&logoColor=white"></a>
+      <a style="cursor: pointer;" onclick="changebg()">
+        <img alt="Static Badge" src="https://img.shields.io/badge/%E5%88%87%E6%8D%A2-%E8%83%8C%E6%99%AF-green?style=flat-square&logo=cinnamon&logoColor=white"></a>
+    </section>
+    <!--
+    <div class="hl">
+      <section class="hero2">
+        <h2>已新增 20 多个版本客户端！</h2>
+        快捷跳转：<br>
+        <a href="#release">正式版（1.8.8 - 1.12.2）</a><br>
+        <a href="#beta">高版本测试版（1.13.2 - 26.2）</a><br>
+        <a href="#modpack">模组整合包（1.6.4 Forge）</a><br>
+        <a href="#legacy">旧版（Alpha - beta - 1.6.4）</a><br>
+        <a href="#thirdparty">第三方版（PixelClient, TuffClient）</a>
+      </section>
+    </div>-->
+    <!-- <section class="doc" style="padding-top: 2px;padding-bottom: 0px;">
+      <p style="color: black;">
+        <strong>注意：</strong>MCJS 远程联机服务遭受网络攻击导致故障，正在紧急修复中，用户请暂时使用其它中继服务器，以保障局域网联机不受影响
+      </p>
+    </section> -->
+        <section class="doc" style="padding-top: 2px;padding-bottom: 0px;">
+      <p style="color: black;">
+        <strong>注意：</strong>该网站为 MCJS.Link 的镜像站，更新可能不及时，请到<a href="https://mcjs.link" style="color: var(--accent-contrast);">官方网站</a>获取支持
+      </p>
+    </section>
+    <hr id="release">
+    <p class="pp">MCJS 优化正式版 Eaglercraft 客户端</p>
+    <p class="ppp">发展最早，最稳定且性能最好的版本，由 MCJS 完美支持中文翻译和远程联机功能</p>
+    <main class="grid" aria-label="版本列表">
+      <div class="card">
+        <div>
+          <span class="chip1">推荐</span>
+          <span class="chip2">最佳兼容</span>
+          <h3>EaglercraftX 1.8.8</h3>
+          <div class="ver">MC JE 1.8.8 JS <strong>u53 ultimate</strong><br>原作者: lax1dude<br>翻译: MCJS</div>
+          <div class="features" style="font-weight: bold;color: var(--accent);">
+            🆕已更新最终版汉化包，更新完整翻译
+          </div>
+          <div class="features">
+            🌏语言：<span style="font-weight: bold;color: var(--accent);">简体中文</span>(完整翻译)、英文<br>
+            💻性能：高<br>
+            🎮设备：电脑键鼠操作、<span style="font-weight: bold;color: var(--accent);">手机触屏操作</span><br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：自定义材质包、<span style="font-weight: bold;color: var(--accent);">内置光影包</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('1.8.8')">开始游戏</a>
+          <p class="siz">21.2MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip1">推荐</span>
+          <span class="chip2">最佳性能</span>
+          <h3>EaglercraftX 1.8.8 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.8.8 WASM-GC <strong>u53 ultimate</strong><br>原作者: lax1dude<br>翻译: MCJS</div>
+          <div class="features" style="font-weight: bold;color: var(--accent);">
+            🆕已更新最终版汉化包，更新完整翻译
+          </div>
+          <div class="features">
+            🌏语言：<span style="font-weight: bold;color: var(--accent);">简体中文</span>(完整翻译)、英文<br>
+            💻性能：<span style="font-weight: bold;color: var(--accent);">极高</span><br>
+            🎮设备：电脑键鼠操作、<span style="font-weight: bold;color: var(--accent);">手机触屏操作</span><br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：自定义材质包、<span style="font-weight: bold;color: var(--accent);">内置光影包</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('1.8.8wasm')">开始游戏</a>
+          <p class="siz">9.7MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip1">推荐</span>
+          <h3>Eaglercraft 1.12.2</h3>
+          <div class="ver">MC JE 1.12.2 JS <strong>u3</strong><br>原作者: PeytonPlayz585<br>翻译: MCJS</div>
+          <div class="features" style="font-weight: bold;color: var(--accent);">
+            🆕已热更新至 u3 版本，大幅提升性能<br>现已支持导出存档和局域网/远程联机<br>已更新最终版汉化包，更新完整翻译
+          </div>
+          <div class="features">
+            🌏语言：<span style="font-weight: bold;color: var(--accent);">简体中文</span>(完整翻译)<br>
+            💻性能：高<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：自定义材质包
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('1.12.2')">开始游戏</a>
+          <p class="siz">29.8MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip1">推荐</span>
+          <h3>Eaglercraft 1.12.2 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.12.2 WASM-GC <strong>u3</strong><br>原作者: PeytonPlayz585<br>翻译: MCJS</div>
+          <div class="features" style="font-weight: bold;color: var(--accent);">
+            🆕已热更新至 u3 版本，大幅提升性能<br>现已支持导出存档和局域网/远程联机<br>已更新最终版汉化包，更新完整翻译
+          </div>
+          <div class="features">
+            🌏语言：<span style="font-weight: bold;color: var(--accent);">简体中文</span>(完整翻译)<br>
+            💻性能：<span style="font-weight: bold;color: var(--accent);">极高</span><br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：自定义材质包
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('1.12.2wasm')">开始游戏</a>
+          <p class="siz">16.3MB</p>
+        </div>
+      </div>
+    </main>
+
+
+    <hr id="beta">
+    <p class="pp">最新测试版高版本 Eaglercraft 客户端</p>
+    <p class="ppp">提前体验最新版本 (1.13+ 高版本)，测试版不稳定且 bug 多，仅测试体验<br><strong>高版本对设备性能要求高，故只有 WASM
+        版，需要高性能的电脑才能流畅运行</strong><br><span style="font-size: 13px;">测试版由 <a href="https://enchantment-niko.github.io/" style="color: var(--accent-contrast);">GitHub@Enchantment-Niko</a> 提供中文翻译</span></p>
+    <main class="grid" aria-label="版本列表">
+      <div class="card">
+        <div>
+          <span class="chip">测试版</span>
+          <h3>Eaglercraft 1.13.2 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.13.2 WASM-GC u1<br>原作者: arlen<br>翻译: Enchantment-Niko</div>
+          <div class="features">
+            🌏语言：<span style="font-weight: bold;color: var(--accent);">简体中文</span>、英文<br>
+            💻性能：中<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：自定义材质包
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal2('1.13.2','https://enchantment-niko.github.io/webmc/1.13.2/chinese.html')">开始游戏</a>
+          <p class="siz">51.7MB</p>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <span class="chip">测试版</span>
+          <h3>Eaglercraft 1.14.4 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.14.4 WASM-GC u1<br>原作者: eymenwsmc<br>翻译: Enchantment-Niko</div>
+          <div class="features">
+            🌏语言：<span style="font-weight: bold;color: var(--accent);">简体中文</span>、英文<br>
+            💻性能：<span style="font-weight: bold;color: brown;">低</span>(建议使用高性能的电脑)<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：自定义材质包
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal2('1.14.4','https://enchantment-niko.github.io/webmc/1.14.4/')">开始游戏</a>
+          <p class="siz">34.3MB</p>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <span class="chip">测试版</span>
+          <h3>Eaglercraft 1.16.5 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.16.5 WASM-GC u3 beta<br>原作者: AcornDev</div>
+          <div class="features">
+            <span style="font-weight: bold;color: brown;">⚠️已知 bug: 阴影渲染有问题导致整体亮度偏暗，建议调高亮度使用</span><br>
+            🌏语言：仅英文原版<br>
+            💻性能：<span style="font-weight: bold;color: brown;">低</span>(建议使用高性能的电脑)<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：自定义材质包
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal2('1.16.5','https://enchantment-niko.github.io/webmc/1.16.5/')">开始游戏</a>
+          <p class="siz">44.5MB</p>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <span class="chip1">推荐</span>
+          <span class="chip">测试版</span>
+          <h3>Eaglercraft 1.20.6 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.20.6 WASM-GC beta 0.1<br>原作者: eymenwsmc<br>翻译: Enchantment-Niko</div>
+          <div class="features">
+            🌏语言：<span style="font-weight: bold;color: var(--accent);">简体中文</span>、英文<br>
+            💻性能：<span style="font-weight: bold;color: brown;">低</span>(建议使用高性能的电脑)<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：自定义材质包
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal2('1.20.6','https://enchantment-niko.github.io/webmc/1.20.6/chinese.html')">开始游戏</a>
+          <p class="siz">88.7MB</p>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <span class="chip">测试版</span>
+          <h3>Eaglercraft 1.21.11 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.21.11 WASM-GC u1 beta<br>原作者: Syntaxsavy<br>翻译: Enchantment-Niko</div>
+          <div class="features">
+            <span style="font-weight: bold;color: brown;">⚠️已知 bug: 需要导入一个自定义皮肤才能进入主页，或 <a href="https://mcjs.link/steve.png" style="color:green" download="">获取临时默认皮肤</a></span><br>
+            🌏语言：<span style="font-weight: bold;color: var(--accent);">简体中文</span>、英文<br>
+            💻性能：<span style="font-weight: bold;color: brown;">极低</span>(建议使用高性能的电脑)<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：仅单机游戏<br>
+            📂资源：自定义材质包
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal2('1.21.11','https://enchantment-niko.github.io/webmc/1.21.11/desktop.html')">开始游戏</a>
+          <p class="siz">46.7MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">测试版</span>
+          <h3>Eaglercraft 26.1.2 <span style="font-size: 12px;">WebGL2</span></h3>
+          <div class="ver">MC JE 26.1.2 Final<br>原作者: Novix</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            💻性能：<span style="font-weight: bold;color: brown;">极低</span>(建议使用高性能的电脑)<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：仅单机游戏<br>
+            📂资源：自定义材质包
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal2('26.1.2','https://enchantment-niko.github.io/webmc/26.1.2/novix-1.2.html')">开始游戏</a>
+          <p class="siz">61.6MB</p>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <span class="chip1">推荐</span>
+          <span class="chip">测试版</span>
+          <h3>Eaglercraft 26.2 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 26.2 0.5-dev<br>原作者: o_xer<br>翻译: Enchantment-Niko, o_xer</div>
+          <div class="features">
+            🌏语言：<span style="font-weight: bold;color: var(--accent);">简体中文</span>、英文<br>
+            💻性能：<span style="font-weight: bold;color: brown;">低</span>(建议使用高性能的电脑)<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：仅单机游戏<br>
+            📂资源：自定义材质包
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal2('26.2','https://enchantment-niko.github.io/webmc/26.2/')">开始游戏</a>
+          <p class="siz">71.6MB</p>
+        </div>
+      </div>
+    </main>
+    <hr id="modpack">
+    <p class="pp">模组整合包 Eaglercraft 客户端</p>
+    <p class="ppp">1.6.4 Forge 版本，内置近百种热门模组，超越原版体验<br><strong>模组整合包对设备性能要求高，故只有 WASM 版，需要高性能的电脑才能流畅运行</strong></p>
+    <main class="grid" aria-label="版本列表">
+      <div class="card">
+        <div>
+          <span class="chip">测试版</span>
+          <h3>Eaglercraft 1.6.4 Forge<br>"Lite" Modpack<br>"轻量" 整合包 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.6.4 Forge Modpack WASM-GC<br>原作者: lax1dude</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            💻性能：较低<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：自定义材质包、<span style="font-weight: bold;color: var(--accent);">内置模组包</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('modpack/lite')">开始游戏</a>
+          <p class="siz">25.7MB</p>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <span class="chip">测试版</span>
+          <h3>Eaglercraft 1.6.4 Forge<br>"Tech" Modpack<br>"硬核科技" 整合包 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.6.4 Forge Modpack WASM-GC<br>原作者: lax1dude</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            💻性能：<span style="font-weight: bold;color: brown;">低</span>(建议使用高性能的电脑)<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：自定义材质包、<span style="font-weight: bold;color: var(--accent);">内置模组包</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('modpack/tech')">开始游戏</a>
+          <p class="siz">28.3MB</p>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <span class="chip">测试版</span>
+          <h3>Eaglercraft 1.6.4 Forge<br>"Skyfactory" Modpack<br>"天空工厂" 整合包 <span style="font-size: 12px;">WASM</span>
+          </h3>
+          <div class="ver">MC JE 1.6.4 Forge Modpack WASM-GC<br>原作者: lax1dude</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            💻性能：<span style="font-weight: bold;color: brown;">低</span>(建议使用高性能的电脑)<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：自定义材质包、<span style="font-weight: bold;color: var(--accent);">内置模组包</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('modpack/skyfactory')">开始游戏</a>
+          <p class="siz">26.5MB</p>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <span class="chip">测试版</span>
+          <h3>Eaglercraft 1.6.4 Forge<br>"Magic" Modpack<br>"神奇魔法" 整合包 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.6.4 Forge Modpack WASM-GC<br>原作者: lax1dude</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            💻性能：<span style="font-weight: bold;color: brown;">低</span>(建议使用高性能的电脑)<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：自定义材质包、<span style="font-weight: bold;color: var(--accent);">内置模组包</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('modpack/magic')">开始游戏</a>
+          <p class="siz">30.3MB</p>
+        </div>
+      </div>
+    </main>
+    <hr id="legacy">
+    <p class="pp">旧版 Eaglercraft 客户端</p>
+    <p class="ppp">早期版本原版搬运，只有英文版，早已停更不再提供支持，仅怀旧体验</p>
+
+
+    <main class="grid" aria-label="版本列表">
+
+      <div class="card">
+        <div>
+          <span class="chip">旧版</span>
+          <h3>Eaglercraft 1.6.4</h3>
+          <div class="ver">MC JE 1.6.4 JS<br>原作者: Catfoolyou</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：仅单机游戏
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('1.6.4')">开始游戏</a>
+          <p class="siz">23.5MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">旧版</span>
+          <h3>Eaglercraft 1.5.2</h3>
+          <div class="ver">MC JE 1.5.2 JS SP2 Update<br>原作者: lax1dude, ayunami2000</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：仅单机游戏
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('1.5.2')">开始游戏</a>
+          <p class="siz">20.2MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">旧版</span>
+          <h3>Eaglercraft 1.2.5</h3>
+          <div class="ver">MC JE 1.2.5 JS<br>原作者: Colbster937</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：仅单机游戏
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('1.2.5')">开始游戏</a>
+          <p class="siz">21.3MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">旧版</span>
+          <h3>Eaglercraft Beta 1.7.3</h3>
+          <div class="ver">MC Beta 1.7.3 JS<br>原作者: lax1dude</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：仅单机游戏
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('legacy/beta1.7.3')">开始游戏</a>
+          <p class="siz">15.6MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">旧版</span>
+          <h3>Eaglercraft Beta 1.3</h3>
+          <div class="ver">MC Beta 1.3 JS<br>原作者: lax1dude</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：仅单机游戏
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('legacy/beta1.3')">开始游戏</a>
+          <p class="siz">4.3MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">旧版</span>
+          <h3>Eaglercraft Alpha 1.2.6</h3>
+          <div class="ver">MC Alpha 1.2.6 JS<br>原作者: lax1dude</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：仅单机游戏
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('legacy/alpha1.2.6')">开始游戏</a>
+          <p class="siz">8.2MB</p>
+        </div>
+      </div>
+    </main>
+    <hr id="thirdparty">
+    <p class="pp">第三方 Eaglercraft 客户端</p>
+    <p class="ppp">由社区开发的第三方客户端，魔改界面和功能，非官方不受支持，只有英文版</p>
+
+    <main class="grid" aria-label="版本列表">
+      <div class="card">
+        <div>
+          <span class="chip">第三方</span>
+          <h3>PixelClient 1.8.8</h3>
+          <div class="ver">MC JE 1.8.8 JS Modded</div>
+          <div class="features">
+            🌏语言：部分翻译中文、英文<br>
+            💻性能：较高<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：PixelClient 定制主题
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('pixelclient/1.8.8')">开始游戏</a>
+          <p class="siz">18.7MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">第三方</span>
+          <h3>PixelClient 1.8.8 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.8.8 WASM-GC Modded</div>
+          <div class="features">
+            🌏语言：部分翻译中文、英文<br>
+            💻性能：高<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：PixelClient 定制主题
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('pixelclient/1.8.8wasm')">开始游戏</a>
+          <p class="siz">16.7MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">第三方</span>
+          <h3>PixelClient 1.12.2</h3>
+          <div class="ver">MC JE 1.12.2 JS Modded</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            💻性能：中<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：PixelClient 定制主题
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('pixelclient/1.12.2')">开始游戏</a>
+          <p class="siz">21.6MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">第三方</span>
+          <h3>PixelClient 1.12.2 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.12.2 WASM-GC Modded</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            💻性能：较高<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：PixelClient 定制主题
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('pixelclient/1.12.2wasm')">开始游戏</a>
+          <p class="siz">22.5MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">第三方</span>
+          <h3>TuffClient 1.12.2</h3>
+          <div class="ver">MC JE 1.12.2 JS Modded</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            💻性能：中<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：TuffClient 定制主题
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('tuffclient/1.12.2')">开始游戏</a>
+          <p class="siz">37.2MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">第三方</span>
+          <h3>TuffClient 1.12.2 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.12.2 WASM-GC Modded</div>
+          <div class="features">
+            🌏语言：仅英文原版<br>
+            💻性能：较高<br>
+            🎮设备：仅支持电脑键鼠操作<br>
+            🔗联机：单机、局域网、<span style="font-weight: bold;color: var(--accent);">远程联机</span><br>
+            📂资源：TuffClient 定制主题
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn" onclick="openModal('tuffclient/1.12.2wasm')">开始游戏</a>
+          <p class="siz">24.3MB</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">待收录</span>
+          <h3>StarlikeClient 1.8.8</h3>
+          <div class="ver">MC JE 1.8.8 JS Modded</div>
+          <div class="features">
+            由 StarlikeClient 定制的第三方客户端
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btno">敬请期待</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">待收录</span>
+          <h3>ResentClient 1.8.8</h3>
+          <div class="ver">MC JE 1.8.8 JS Modded</div>
+          <div class="features">
+            由 ResentClient 定制的第三方客户端
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btno">敬请期待</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">待收录</span>
+          <h3>AstraClient 1.8.8</h3>
+          <div class="ver">MC JE 1.8.8 JS Modded</div>
+          <div class="features">
+            由 AstraClient 定制的第三方客户端
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btno">敬请期待</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="chip">待收录</span>
+          <h3>AstraClient 1.8.8 <span style="font-size: 12px;">WASM</span></h3>
+          <div class="ver">MC JE 1.8.8 WASM-GC Modded</div>
+          <div class="features">
+            由 AstraClient 定制的第三方客户端
+          </div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btno">敬请期待</a>
+        </div>
+      </div>
+    </main>
+
+    <hr>
+    <p class="pp" style="margin-bottom: 22px;">为什么选择 MCJS ?</p>
+
+    <section class="why">
+      <div class="item">
+        <div style="font-size:28px;color:var(--accent)">🆓</div>
+        <h4>免费且无广告</h4>
+        <p>永远完全免费，没有烦人的弹窗，只为给您最佳的游戏体验</p>
+      </div>
+      <div class="item">
+        <div style="font-size:28px;color:var(--accent)">⬇️</div>
+        <h4>无需下载</h4>
+        <p>无需下载或安装，直接在浏览器里玩，文件体积小不耗流量</p>
+      </div>
+      <div class="item">
+        <div style="font-size:28px;color:var(--accent)">🌏</div>
+        <h4>多个版本</h4>
+        <p>提供多个游戏版本，可以任意选择，涵盖从远古版到最新版</p>
+      </div>
+      <div class="item">
+        <div style="font-size:28px;color:var(--accent)">👥</div>
+        <h4>多人游戏</h4>
+        <p>支持局域网联机，提供免费远程联机服务，与朋友一起联机游戏</p>
+      </div>
+    </section>
+    <section class="doc" id="announcement">
+      <h3>简介</h3>
+      <p>在一台临时的电脑上想快速体验 MC ？打开 <a href="https://mcjs.link/" style="color:green;font-weight: bold;">MCJS.Link</a> ，不用下载 Java/启动器/客户端，不需要繁琐的配置操作，打开网页就能玩！<br>
+        <strong>Eaglercraft 介绍：</strong>Eaglercraft 是由 Eaglercraft 开发团队制作的在 Javascript 上运行的网页版 MC ，基于 MCJE 。使用 TeaVM 和
+        OpenGL 模拟器来运行与浏览器完全兼容的 Java 虚拟机。Eaglercraft 是众多网页版 MC 开源项目中完成度最高的，支持 MC 的几乎全部特性。<br>
+        <strong>MCJS 介绍：</strong>MCJS，即 MC in JavaScript，是 Eaglercraft 的中文版，也是众多 Eaglercraft 分支项目中汉化最好的，还原 MC
+        原版体验。MCJS 同时也是所有 Eaglercraft 版本最全整合中文网站，不仅收录了原版和 MCJS 中文翻译版，还收录了其它经过精选的第三方版本。（MCJS 仅为
+        Eaglercraft 开源项目的中文汉化分支，与 Eaglercraft 官方没有从属关系。）<br>
+        <strong>关于 JS 版 和 WASM 版：</strong>普通的 JS 版可以在大多数设备上运行。WASM 是一种较新的技术，可提供更好的性能（更高的帧数，更少的延迟），但需要电脑端的最新 Chrome
+        浏览器才能支持。如果您的浏览器支持它，WASM 版是最推荐的选择。
+      </p>
+    </section>
+    <section class="doc">
+      <h3>最新公告</h3>
+      <p>
+        <strong>MCJS 的官网已由 MCJS.CC 变更为 <a href="https://mcjs.link/" style="color:green;font-weight: bold;">MCJS.Link</a>
+          <br>很抱歉旧网站已被拦截导致彻底无法访问了，网站生存不易，维护一个公益的免费项目不易，所以请不要滥用本项目以及不要恶意举报，谢谢。</strong><br>为了您的安全，建议不要从任何搜索引擎搜索 MCJS
+        ，而是直接在浏览器地址栏输入 MCJS.Link ，谨防搜索引擎给出的假冒网站结果。<br>
+        请各位玩家相互转告，也可以关注我们的 <a href="https://github.com/mcjsteam/mcjs" style="color:green;font-weight: bold;">GitHub</a>
+        以获取最新通知。感谢您的使用。
+      </p>
+    </section>
+    <section class="doc">
+      <h3>常见问题（FAQ）</h3>
+      <p class="small"><strong>问1：</strong>旧网站 mc.js.cool/mcjs.cc ?</p>
+      <p>mc.js.cool/mcjs.cc 是本站很久以前的旧网站，现已停止运营，且已完全迁移至本站 mcjs.link
+        。为了您更好的体验，请将旧网站从收藏夹移除，或更换为本站 mcjs.link 。
+        旧网站主页可能会在部分地区被拦截，此时请使用 MCJS 的唯一官方网站 <a href="https://mcjs.link/" style="color:var(--accent);">MCJS.Link</a> 。
+        MCJS 的官方域名只有 mcjs.link ，以及一个 CDN 域名 144449.xyz 。建议不要从任何搜索引擎搜索 MCJS ，而是直接在浏览器地址栏输入
+        mcjs.link（本站的网址简短好记请不要记错了），谨防搜索引擎给出的假冒网站结果。
+      </p>
+      <p class="small"><strong>问2：</strong>以前的网站被劫持到“反诈”页面</p>
+      <p><strong>声明：MCJS 绝对不是诈骗网站！请用户放心，本网站是纯静态 HTML 网站，我们不会收集或上传任何的用户信息， MCJS 严格遵守您所在地的法律法规，MCJS 上不会有任何的诈骗等违规内容，MCJS
+          永久免费不会向您收费。</strong><br>旧网站（play.mcjs.cc）无法访问的原因是部分用户滥用平台服务且被人恶意举报导致被运营商 DNS 劫持而无法访问。<br>
+        解决方法：使用镜像站（建议使用编号大于 10 的镜像站，更快更稳定）。
+      </p>
+      <p class="small"><strong>问3：</strong>游戏存档消失</p>
+      <p>MCJS 仅用于在临时的电脑上快速体验
+        MC（学校机房，<del>上班摸鱼</del>等），而非是一个长期使用的方案，受浏览器缓存大小限制，存档可能会在任何时候被自动删除（浏览器行为，MCJS 无法干预，MCJS 只是纯静态 HTML
+        网站，无法获取您的任何内容）。对于长期游玩同一存档的用户，请偶尔备份存档，或在使用环境从临时设备转移到长期设备时，将存档导出至正版客户端使用。
+      </p>
+      <p class="small"><strong>问4：</strong>游戏打不开/卡死/崩溃</p>
+      <p>请使用最新的官方 Google Chrome 浏览器访问，尽量不要使用其它浏览器。设备最好使用性能较好的电脑，而非手机等移动设备。
+        如果已经是电脑 Chrome 浏览器，推荐使用 WASM 版，性能最佳。</p>
+
+      <p class="small"><strong>问5：</strong>多人游戏联机问题</p>
+      <p>MCJS 支持局域网联机和<strong>远程联机（MCJS 免费公益提供中转服务器）</strong>。
+        <br><strong>MCJS 中继服务器是国内最佳公益中继服务器，我们承诺永久免费，高可用性，只为给您最佳游戏体验。<br>MCJS 中继服务器在国内部署多个节点负载均衡，延迟和稳定性大幅优于其他中继服务器。</strong>
+        <br>启用方法：将首选中继服务器设置为 wss://relay.mcjs.link 。<br>若您使用的是 MCJS 官方 1.8.8(WASM) 客户端，MCJS 中继服务器已自带且默认是首选，无需改动。<br>若您使用的是其它客户端，则可能需要手动填写并设置，否则可能将无法联机。
+        <br><strong>禁止滥用联机服务！</strong>不要大范围公开私有的邀请码，也不要加入未知来源的服务器，联机服务仅用于好友间联机，严禁托管大型服务器等长时间占用流量行为，严禁任何付费服务器等商业行为。<br>
+        MCJS 保留了原作者提供的几个海外公益服务器，可作为备用选项，但也请不要滥用这些服务器。
+      </p>
+      <p class="small"><strong>问6：</strong>手机、平板等移动触屏设备支持</p>
+      <p>答：网页版 MC 是主要为电脑端设计的，<strong>有且只有 MCJS 官方 1.8.8
+          版本能在移动触屏设备上运行且适配触屏操作，对于其他版本、其他设备不提供任何支持和维护</strong>。推荐使用电脑浏览器体验 MCJS ，在电脑版上所有版本均提供支持。</p>
+
+      <p class="small"><strong>问7：</strong>新版本是否支持</p>
+      <p>近期有外国大佬成功攻破了新版本编译的技术，使得大于 1.12 的版本可以编译为 JS 版，MCJS 会第一时间同步更新，后续会继续更新更多版本。<br><strong>注：测试版不稳定且 bug 多，仅测试体验，如有
+          bug 请勿反馈。高版本对设备性能要求高，故只有 WASM
+          版，需要高性能的电脑才能流畅运行，否则浏览器会时常崩溃。</strong></p>
+
+      <p class="small"><strong>问8：</strong>离线游戏文件下载问题</p>
+      <p>MCJS 不停的在更新版本，离线文件会很快过时。为了保证玩家都统一使用最新版本以提升联机兼容性，MCJS 暂不提供离线下载。</p>
+      <h3>提出其它问题/提交反馈和建议/投稿更多客户端</h3>
+      <p>MCJS 目前有且只有 Github 这一个官方支持平台，其余任何平台、任何群聊均为非官方。</p>
+      <a href="https://github.com/mcjsteam/mcjs/issues" style="color:var(--accent);font-size: 22px;">点击前往 MCJS 官方
+        Github issues</a>
+      <p><strong>多看常见问题，多看往期 issues 回答，再提问！<br>
+          请勿重复提问常见问题，请勿重复提交与 MCJS 无关的内容。</strong>
+      </p>
+      <p>提出其它问题、提交反馈、提供建议都可以直接发 issues 。<br>欢迎提交您的问题！我们会在 72 小时内回复。</p>
+      <h3>联系我们/合作/推广</h3>
+      <p>同前一条，向我们的 Github 仓库提交一条 issues ，描述清楚您的需求即可。</p>
+      <h3>赞助/支持我们</h3>
+      <p>若您想免费支持我们，可以给<a href="https://github.com/mcjsteam/mcjs" style="color:var(--accent);">我们的 Github 仓库</a>点上一个
+        star（推荐）；<br>
+        若您想付费支持我们，可以<a href="https://afdian.com/a/mc-js" style="color:var(--accent);">赞助我们 1 块钱</a>
+        ；<br>若您是云服务提供商，可以为我们提供服务器或 CDN ，用于应对本站日益剧增的访问流量，请提 issues 申请；<br>赞助不强求，是否赞助都不会影响您的游戏体验。</p>
+    </section>
+
+    <section class="doc">
+      <h3>隐私与服务条款</h3>
+      <p>
+        本网站是纯静态 HTML
+        网站，我们不会收集任何的用户信息，我们不会跟踪您，我们不会将您的数据出售给第三方。同时，您不会将我们的服务用于任何非法或未经授权的目的，您使用我们的服务不会违反任何适用的法律或法规，您已阅读并同意
+        Minecraft EULA 协议。<br>
+        注意 / Notice : 本网站只面向简体中文用户开放，对于其它语言的用户，我们不提供支持，请自行寻找您当地的类似项目。/ This website is only available to Simplified
+        Chinese users. We do not provide support for users of other languages. Please find similar projects in your
+        local area on your own.
+      </p>
+      <h3>版权声明</h3>
+      <p>
+        本网站仅整合了从网络上收录的部分开源网页 MC 项目的修改版本，本网站上的所有资源均来自第三方，所有内容仅供学习参考。MCJS 并不提供付费在线服务。<br>部分项目可能含有版权争议，为防止本站出现版权问题，用户在使用
+        MCJS
+        时，MCJS 默认用户已购正版 Minecraft ，已同意 Minecraft EULA 协议。若不同意许可协议，请退出。<br>MCJS 不用于任何的商业用途，MCJS
+        不提供离线盗版资源（部分链接反向代理到站外，不由我们托管），也不允许任何的恶意盗版游戏行为。
+      </p>
+    </section>
+    <footer>
+      Copyright © 2022-2026 MCJS. All rights reserved.
+      <br>
+      本站只是MC爱好者的开源项目汇聚，与"Minecraft"以及"我的世界"没有从属关系。
+      <br>
+      We are not affiliated with Minecraft, Mojang, or Microsoft. This website is for educational purposes only. We do
+      not host any games on our servers nor do we condone piracy.
+    </footer>
+  </div>
+  <div id="myModal" class="modal-overlay">
+    <div class="modal-window">
+      <h3>请选择访问线路</h3>
+      <span>当前选择版本: </span><span id="version">version</span>
+      <p style="color: brown;">注意: 标灰站点可能无法直连访问，请备份您的存档并切换至其它站点!<br><strong>建议使用编号&gt;10的站点</strong></p>
+      <div>
+        <a class="btnb" target="_blank" id="m0" style="background-color: darkgray">旧主站 0</a>
+        <a class="btnb" target="_blank" id="m1">镜像站 1</a>
+        <a class="btnb" target="_blank" id="m2">镜像站 2</a>
+        <a class="btnb" target="_blank" id="m3" style="background-color: darkgray">镜像站 3</a>
+        <a class="btnb" target="_blank" id="m4" style="background-color: darkgray">镜像站 4</a>
+        <a class="btnb" target="_blank" id="m5">镜像站 5</a>
+        <a class="btnb" target="_blank" id="m6">镜像站 6</a>
+        <a class="btnb" target="_blank" id="m11">镜像站 11</a>
+        <a class="btnb" target="_blank" id="m12">镜像站 12</a>
+        <a class="btnb" target="_blank" id="m13">镜像站 13</a>
+        <a class="btnb" target="_blank" id="m14">镜像站 14</a>
+        <a class="btnb" target="_blank" id="m15">镜像站 15</a>
+        <a class="btnb" target="_blank" id="m16">镜像站 16</a>
+        <a class="btnb" target="_blank" id="m17">镜像站 17</a>
+      </div>
+      <p>点击空白处退出选择</p>
+    </div>
+  </div>
+  <div id="myModal2" class="modal-overlay">
+    <div class="modal-window">
+      <h3>请选择访问线路</h3>
+      <span>当前选择版本: 高版本测试/</span><span id="version2">version</span>
+      <p style="color: brown;">此版本文件较大，故使用专门的链接</p>
+      <div>
+        <a class="btnb" target="_blank" id="mm0" style="width: 210px">MCJS 加速镜像站</a>
+      </div>
+      <p>注：MCJS 加速镜像站每天同步一次，载入速度更快，但有可能不是最新文件。如果需要抢先体验最新版本，可以点击下面按钮前往 GitHub 上的原网站</p>
+      <div>
+        <a class="btnb" target="_blank" id="mm1" style="width: 210px">Enchantment-Niko 原网站</a>
+      </div>
+      <p>点击空白处退出选择</p>
+    </div>
+  </div>
+  <script>
+    var userLang = navigator.language || navigator.userLanguage;
+    userLang = userLang.toLowerCase();
+    if (userLang !== 'zh-cn' && !userLang.includes('zh-hans')) window.alert("WARNING\nThis website is only accessible in Simplified Chinese environments.");
+    const bg = document.getElementById('bg');
+    const modal = document.getElementById('myModal');
+    const modal2 = document.getElementById('myModal2');
+    const version = document.getElementById('version');
+    const version2 = document.getElementById('version2');
+    const m0 = document.getElementById('m0');
+    const m1 = document.getElementById('m1');
+    const m2 = document.getElementById('m2');
+    const m3 = document.getElementById('m3');
+    const m4 = document.getElementById('m4');
+    const m5 = document.getElementById('m5');
+    const m6 = document.getElementById('m6');
+    const m11 = document.getElementById('m11');
+    const m12 = document.getElementById('m12');
+    const m13 = document.getElementById('m13');
+    const m14 = document.getElementById('m14');
+    const m15 = document.getElementById('m15');
+    const m16 = document.getElementById('m16');
+    const m17 = document.getElementById('m17');
+    const mm0 = document.getElementById('mm0');
+    const mm1 = document.getElementById('mm1');
+    function openModal(ver) {
+      version.innerText = ver;
+      m0.href = 'https://play.mcjs.cc/' + ver;
+      m1.href = 'https://playmcjscc.pages.dev/' + ver;
+      m2.href = 'https://play.mcjs.144449.xyz/' + ver;
+      m3.href = 'https://ipv6.mcjs.cc/' + ver;
+      m4.href = 'https://mirror.mcjs.cc/' + ver;
+      m5.href = 'https://mcjs-mirror.144449.xyz/' + ver;
+      m6.href = 'https://mcjs-mirror-test.144449.xyz/' + ver;
+      m11.href = 'https://1.mcjslink.144449.xyz/' + ver;
+      m12.href = 'https://2.mcjslink.144449.xyz/' + ver;
+      m13.href = 'https://3.mcjslink.144449.xyz/' + ver;
+      m14.href = 'https://4.mcjslink.144449.xyz/' + ver;
+      m15.href = 'https://5.mcjslink.144449.xyz/' + ver;
+      m16.href = 'https://6.mcjslink.144449.xyz/' + ver;
+      m17.href = 'https://7.mcjslink.144449.xyz/' + ver;
+      modal.style.display = 'flex';
+    }
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+    window.onclick = function (event) {
+      if (event.target === modal || event.target === modal2) {
+        closeModal();
+        closeModal2();
+      }
+    }
+    function openModal2(ver, origin) {
+      version2.innerText = ver;
+      mm0.href = 'https://mcjs-beta.144449.xyz/' + ver;
+      mm1.href = origin;
+      modal2.style.display = 'flex';
+    }
+    function closeModal2() {
+      modal2.style.display = 'none';
+    }
+    function changebg() {
+      if (bg.style.display != 'none') {
+        bg.style.display = 'none';
+      }
+      else {
+        bg.style.display = 'block';
+      }
+    }
+  </script>
+<!-- Cloudflare Pages Analytics --><script defer="" src="./MCJS - 网页版MC最佳中文版 - 官方网站 - MCJS.Link_files/beacon.min.js.下载" data-cf-beacon="{&quot;token&quot;: &quot;13f165c1dff54898a8b4754fcb77c7c7&quot;}"></script><!-- Cloudflare Pages Analytics -->
+
+</body></html>
